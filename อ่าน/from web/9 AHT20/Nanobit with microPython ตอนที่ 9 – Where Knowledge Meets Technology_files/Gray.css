@@ -1,0 +1,71 @@
+﻿.easycodebox {background: #f7f7f7 !important; border-color:#CCC !important;}
+.easycodebox .scrollbox .ecside {background:#ededed !important;}
+.easycodebox .headbar, .easycodebox .scrollbox .main ol {color:#666666 !important;}
+.easycodebox ol {}
+.easycodebox ol li:hover{background:#fff !important; color:#336699 !important;}
+
+.easycodebox .echl-function{color:#00F;}
+.easycodebox .echl-variable{color:#088;}
+.easycodebox .echl-constant{color:#880;}
+.easycodebox .echl-string{color:#080;}
+.easycodebox .echl-number{color:#808;}
+.easycodebox .echl-comment{color:#888;}
+.easycodebox .echl-keyword{color:#F00;}
+.easycodebox .echl-important{color:#F0F;}
+
+/* EasyCode Highlight -- GeShi Mode*/
+ .easycodebox .imp {color: #F0F;}
+ 
+ .easycodebox .kw1,.easycodebox .kw2 {color: #F00;} /*keywords*/
+ .easycodebox .kw3 {color: #00F;} /*functions*/
+ .easycodebox .kw4 {color: #880;} /*constant*/
+ 
+ .easycodebox .co1,
+ .easycodebox .co2,
+ .easycodebox .co3,
+ .easycodebox .co4,
+ .easycodebox .coMULTI {color: #888;} /*comment*/
+ 
+ .easycodebox .es0,
+ .easycodebox .es1,
+ .easycodebox .es2,
+ .easycodebox .es3,
+ .easycodebox .es4,
+ .easycodebox .es5,
+ .easycodebox .es6,
+ .easycodebox .es_h {color: #80F;}
+ 
+ 
+ .easycodebox .sy0,
+ .easycodebox .sy1 {color: #800;}
+ 
+ .easycodebox .st0,
+ .easycodebox .st_h {color: #080;}
+ 
+ .easycodebox .nu0 ,
+ .easycodebox .nu8 ,
+ .easycodebox .nu12,
+ .easycodebox .nu19 {color:#808;}
+ 
+ .easycodebox .me1,
+ .easycodebox .me2 {color: #00F;}
+ 
+ .easycodebox .re0,
+ .easycodebox .re1,
+ .easycodebox .re2,
+ .easycodebox .re3 {color: #088;} /*variable*/
+
+
+
+/* EasyCode Highlight -- SH Mode*/
+ .easycodebox .comments	{color: #888;}
+ .easycodebox .string   {color: #080;}
+ .easycodebox .keyword  {color: #F00;}
+ .easycodebox .variable {color: #088;}
+ .easycodebox .value    {color: #808;}
+ .easycodebox .functions{color: #00F;}
+ .easycodebox .constants{color: #880;}
+ .easycodebox .color1,
+ .easycodebox .operator {color: #800;}  /*symbols*/
+ .easycodebox .color2   {color: #80F;}  /* char */
+ .easycodebox .color3   {color: #F0F;}  /*important*/

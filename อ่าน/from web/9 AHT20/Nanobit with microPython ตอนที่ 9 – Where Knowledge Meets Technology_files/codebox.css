@@ -1,0 +1,239 @@
+/*CSS for the CodeBox*/
+
+.easycodebox {
+	width:100%;
+	margin:3px 1px !important;
+	border:solid 1px;
+	overflow:hidden;
+	box-shadow: 0 0 5px rgba(168,168,168,0.6);
+	transition: box-shadow .3s;
+	border-radius:.3em;
+}
+
+.easycodebox:hover {
+	box-shadow: 0 0 8px rgba(168,168,168,0.9);
+}
+
+.easycodebox .headbar {
+	background-image:url(b6c.gif);
+	background-position:5px center;
+	background-repeat:no-repeat;
+	line-height:1.7em;
+	font-size:1.2em;
+	padding-left:3em;
+	cursor:pointer;
+	transition: all .1s;
+}
+
+.easycodebox .headbar:hover {
+	background-position:11px center;
+	background-size:20px;
+}
+
+.easycodebox.hidecode .headbar {background-image:url(b6.gif);}
+
+.easycodebox .headbar .message {
+	line-height:1;
+	font-size:70%;
+	font-style:italic;
+}
+.easycodebox .headbar .message :after {
+	content:"- Show or hide the code";
+}
+
+.easycodebox .flex-box {
+	overflow:hidden;
+	width:100%;
+	transition:all 0.3s;
+}
+
+.easycodebox .scrollbox {
+	overflow:auto;
+}
+
+.easycodebox .scrollbox pre {
+	padding:0;
+	margin:0;
+	background:none;
+	border:none;
+}
+
+.easycodebox .scrollbox table{
+	width:auto;  /*No modify*/
+	min-width:100%;
+	margin:0 !important;
+	border:0 !important;
+	background:none;
+	color:inherit;
+}
+
+.easycodebox table tr {
+		background:transparent !important;
+}
+
+.easycodebox .ecside {
+	display:table-cell;
+	min-width:3em !important;
+	max-width:3em !important;
+	width:3em !important;
+	padding:0 !important;
+	margin:0;
+	border:0 !important;
+	line-height:0;
+	overflow:hidden;
+}
+.easycodebox .main {
+	display:table-cell;
+	width:auto;
+	min-width:100%;
+	border:0 !important;
+	margin:0;
+	padding:0 !important;
+	background:none;
+}
+
+.easycodebox .main ol {
+	position:relative;
+	left:-3em;
+	width:auto;
+	min-width:100%;
+	margin:0 -3em 0 0 !important;
+	padding:0 0 0 3em !important;
+	background:none;
+	line-height:1.7em !important;
+	font-family:Monaco,Consolas,"Lucida Console","Courier New",monospace;
+	font-weight:normal !important;
+	font-style:normal !important;
+	font-size:90%;
+	list-style-position:outside !important;
+}
+.easycodebox .main ol li{
+	padding:0 3px 0 6px;
+	margin:0;
+	list-style-position:outside !important;
+	text-align:left;
+	transition: all .16s;
+}
+.easycodebox .main ol li:hover{}
+
+.easycodebox .main ol span {font-size:100% !important;}
+
+.easycodebox .main ol a {
+	color:inherit;
+	text-decoration:underline;
+}
+
+/*.easycodebox.hidecode .scrollbox {
+	display:none;
+}*/
+
+.easycodebox.hidecode .flex-box {
+	max-height:0;
+	transition:all 0.3s;
+}
+
+
+@media (min-width:1120px) {
+
+}
+
+
+@media (max-width:600px) {
+	.easycodebox {
+		margin:2px 0;
+	}
+
+	.easycodebox .headbar {
+		background-position:3px center;
+		line-height:1.5em;
+		padding-left:1.2em;
+	}
+
+	.easycodebox .ecside {
+		min-width:2.8em !important;
+		max-width:2.8em !important;
+		width:2.8em !important;
+	}
+
+	.easycodebox .main ol {
+		left:-2.8em;
+		margin:0 -2.8em 0 0 !important;
+		padding:0 0 0 2.8em !important;
+		line-height:1.5em !important;
+		font-size:.85em !important;
+	}
+	
+	.easycodebox .main ol li{
+		padding:0 1px 0 3px;
+	}
+}
+
+@media print {
+	.easycodebox {
+		margin: 0;
+	}
+
+	.easycodebox.hidecode .flex-box {
+		max-height:initial;
+	}
+
+	.easycodebox .headbar,
+	.easycodebox.hidecode .headbar{
+		background-image:none;
+		padding-left:1em;
+	}
+}
+
+
+
+/*Eidtor*/
+.easycode-editor {
+	position:fixed;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
+	display:none;
+}
+.easycode-editor .bgb {
+	position:fixed;
+	width:100%;
+	height:100%;
+	top:0px;
+	left:0px;
+	background:#000;
+	filter: alpha(opacity=75);
+	opacity: 0.75;
+	z-index:9998;
+}
+.easycode-editor .main {
+	position:fixed;
+	width:100%;
+	height:60%;
+	top:20%;
+	left:0px;
+	z-index:9999;
+	text-align: center;
+}
+.easycode-editor .message {
+	color:white;
+	font-size:0.9em;
+}
+.easycode-editor .toolbar{
+	float:right;
+	margin:3px 10px;
+}
+.easycode-editor .toolbar li {
+	width:20px;
+	height:20px;
+	float:right;
+	background:none;
+	color:white;
+}
+
+.easycode-editor textarea {
+	height:100%;
+	width:100%;
+	border:none;
+	font-family:Monaco,Consolas,"Lucida Console","Courier New";
+}

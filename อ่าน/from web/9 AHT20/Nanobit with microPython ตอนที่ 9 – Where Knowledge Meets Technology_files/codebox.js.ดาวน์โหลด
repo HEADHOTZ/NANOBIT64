@@ -1,0 +1,178 @@
+
+String.prototype.HtmlTo = function(dir){
+	text=this;
+	if(dir || dir===undefined){//When dir is true,remove HTML tags.
+		text = text.replace(/<\/li><li/igm,'</li>\n<li');
+		text = text.replace(/<[^\n<>]+>/igm,'');
+		text = text.replace(/&quot;/g,'"').replace(/&#34;/g,'"');
+		text = text.replace(/&apos;/g,"'").replace(/&#39;/g,"'");
+		//text = text.replace(/&amp;/g,'&').replace(/&#38;/g,'&');
+		text = text.replace(/&lt;/g,'<').replace(/&#60;/g,'<');
+		text = text.replace(/&gt;/g,'>').replace(/&#62;/g,'>');
+		text = text.replace(/&acute;/g,'´').replace(/&#180;/g,'´');
+		text = text.replace(/&nbsp;/g,' ').replace(/&#160;/g,' ');
+		text = text.replace(/[\r\n]+/igm, "\n");
+		text = text.replace(/\n\n/g, "\n");
+	}else{
+		/*
+		text = text.replace(/&/g,'&amp;');
+		text = text.replace(/"/g,'&quot;');
+		text = text.replace(/'/g,'&apos;');*/
+		text = text.replace(/</g,'&lt;');
+		text = text.replace(/>/g,'&gt;');
+		text = text.replace(/ /g,'&nbsp;');
+		text = text.replace(/[\r\n]+/igm, "\n");
+		text = text.replace(/\n\n/g, "\n");
+	}
+	return text;
+}
+
+function creatEasyCodeBox(input,output){
+
+	if(!input){//operation on `editcode` textarea
+		textareaobj = document.getElementById('EasyCodeTextAreaBox');
+
+		this.closeEdit = function(){
+			textareaobj.style.display = 'none';
+		}
+
+		this.printCode =function(auto){
+			features = 'menubar=no,resizable=yes,status=no,location=no,toolbar=no,height=800,width=600';
+			objWin = window.open('','_blank',features);
+			if(auto===undefined) auto=true;
+			written = '<html>\n<head>\n<title>[EasyCode]Print Code</title>\n</head>\n<body onload="'+(auto?'window.print();':'')+'">';
+			written = written+'<small>[EasyCode] Press Ctrl+P to <a href="javascript:window.print();">Print</a></small>\n';
+			written = written+'<pre>'+textareaobj.getElementsByTagName('textarea')[0].value.HtmlTo(false)+'</pre></body></html>';
+			objWin.document.write(written);
+			objWin.document.close();
+		}
+
+	}else{//oprate on codebox
+
+		switch(typeof input){
+		case 'string':
+			o = document.getElementById(input);
+			break;
+		case 'number':
+			o = document.getElementById('easycodebox-'+input);
+			break;
+		case 'object':
+			if(input.className=='headbar'||'main'){
+				o=input.parentNode;
+			}else if(input.nodeName=='OL'){
+				o=input.parentNode.parentNode;
+			}
+			break;
+		}
+		this.childNodes = new Object;
+		this.scrollBoxHeight = this.getChildNode('ol').scrollHeight;
+
+	}
+}
+
+creatEasyCodeBox.prototype.getChildNode = function(target){
+	switch (target){
+	case 'ol':
+		this.childNodes.ol = o.getElementsByTagName('ol')[0] || o.getElementsByTagName('pre')[0];
+		return this.childNodes.ol;
+		break;
+	case 'scrollbox':
+		if (!this.childNodes.hasOwnProperty('scrollbox')) this.childNodes.scrollbox = o.getElementsByClassName('scrollbox')[0];
+		return this.childNodes.scrollbox;
+	case 'flex-box':
+		if (!this.childNodes.hasOwnProperty('flex-box')) this.childNodes.flexBox = o.getElementsByClassName('flex-box')[0];
+		return this.childNodes.flexBox;		
+	}
+}
+
+creatEasyCodeBox.prototype.getInfo = function(target){
+	if(target=='lang'){
+		result = o.className.replace('hidecode','').replace(/ /g,'').replace('easycodebox','');
+	}
+	return result;
+}
+
+creatEasyCodeBox.prototype.ShowCode = function(){
+	return this.slideShowCode();
+	//
+	ool=this.getChildNode('scrollbox');
+	/*var t;if(t) clearTimeout(t);*/
+	if(o.className.search('hidecode')>=0){
+		o.className = o.className.replace('hidecode','');
+	}else{
+		o.className += ' hidecode';
+	}
+}
+
+
+creatEasyCodeBox.prototype.slideShowCode = function(){
+	ool=this.getChildNode('flex-box');
+	endValue= ool.scrollHeight+'px';
+	if(o.className.search('hidecode')>=0){
+		ool.style.maxHeight = '0px';
+		ool.style.maxHeight = endValue;
+		ool.clientHeight;  //force browsers to reflow and repaint
+		o.className = o.className.replace('hidecode','');
+		setTimeout(function(){ool.style.maxHeight = null;}, 300);  //ensure the correct value without changes of zoom
+	}else{
+		ool.style.maxHeight = endValue;
+		ool.clientHeight;  //force browsers to reflow and repaint
+		ool.style.maxHeight = '0px';
+		o.className += ' hidecode';
+		setTimeout(function(){ool.style.maxHeight = null;}, 300);  //ensure the correct value without changes of zoom
+	}
+}
+
+
+creatEasyCodeBox.prototype.editCode=function(mode,message,time){
+	if(EasyCodeGlobal.editCodeNewWindow==1) return this.editCodew(mode,message,time);
+
+	textareaobj = document.getElementById('EasyCodeTextAreaBox');
+	if(mode){
+		var olo = this.getChildNode('ol'), text = olo.innerHTML.HtmlTo();
+		textareaobj.style.display = 'block';
+		ot = textareaobj.getElementsByTagName('textarea')[0];
+		ot.value = text;
+		ot.select();
+	}else{
+		textareaobj.style.display = 'none';
+	}
+}
+
+creatEasyCodeBox.prototype.editCodew=function(mode,message,time){
+	var olo = this.getChildNode('ol'), text = olo.innerHTML.HtmlTo();
+	if(message === undefined) message='Press Ctrl+V to copy the following code';
+	//load a new window	
+	var width = 800,height=400;
+	x = (screen.width - width) / 2;
+	y = (screen.height - height) / 2;
+	features = 'menubar=no,resizable=yes,status=no,location=no,toolbar=no,'+',height='+height+',width='+width+',top='+y+',left='+x;
+	objWin = window.open('','_blank',features);
+
+	objWin.document.write('<!DOCTYPE html><head><title>[EasyCode] Eidt</title><link rel="stylesheet" type="text/css" href="'+EasyCodeGlobal.pluginDir+'/html/editcodew.css" /></head>');
+	objWin.document.write('<body><div class="main"><div id="message">'+message+'</div>');
+	objWin.document.write('<textarea id="editarea" onmouseover="this.select();"> \r\n'+text+'</textarea></div></body></html>');
+	objWin.document.close();
+}
+
+creatEasyCodeBox.prototype.highLightCode = function(){
+	lang = this.getInfo('lang');
+	if(lang){
+		olo = this.getChildNode('ol');
+		olo.innerHTML = EasyCodeHighLight.codeHighLighter(olo.innerHTML,lang);
+	}
+}
+
+function EasyCodeClass(a){return new creatEasyCodeBox(a);}
+
+
+EasyCodeGlobal = {
+	pluginDir:'',
+	ECshowHelp:function (){
+		var x = (screen.width-500)/2,y = (screen.height-300)/2;
+		features = 'menubar=no,resizable=no,status=no,location=no,toolbar=no,'+',height='+height+',width='+width+',top='+y+',left='+x;
+		objWin = window.open(EasyCodeGlobal.pluginDir+'/html/showhelp.htm','showhelp',features);
+	}
+}
+
+//-->
