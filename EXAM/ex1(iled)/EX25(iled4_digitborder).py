@@ -1,0 +1,42 @@
+from iled import *
+import gc
+gc.collect()
+f = iled()
+while True:
+    for i in range(6):
+        # write_digit(ตำแหน่งdigit, ค่าของDigit)
+        f.write_digit(0, i)
+        f.update_display()
+        sleep(500)
+        f.clear()
+    f.write_digit(0, 0)
+    f.update_display()
+    sleep(500)
+    f.clear()
+    for i in range(6):
+        f.write_digit(1, i)
+        f.update_display()
+        sleep(500)
+        f.clear()
+    f.write_digit(1, 0)
+    f.update_display()
+    sleep(500)
+    f.clear()
+    for i in range(6):
+        f.write_digit(2, i)
+        f.update_display()
+        sleep(500)
+        f.clear()
+    f.write_digit(2, 0)
+    f.update_display()
+    sleep(500)
+    f.clear()
+    for i in range(6):
+        f.write_digit(3, i)
+        f.update_display()
+        sleep(500)
+        f.clear()
+    f.write_digit(3, 0)
+    f.update_display()
+    sleep(500)
+    f.clear()
